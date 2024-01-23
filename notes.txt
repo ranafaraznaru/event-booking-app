@@ -1,5 +1,0 @@
-(1) bodyparse package is for extracting the json content from incoming request.
-(2) --save install all core packages inside dependency section means without
-those packages app wont run fine.
-(3) packages installed with dev means development only depencies means they are
-not required to run the app in production (live) 
