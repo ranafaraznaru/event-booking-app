@@ -4,18 +4,33 @@ import { graphqlHTTP } from "express-graphql";
 import { buildSchema } from "graphql";
 
 const app = express();
-
+const events = [];
 app.use(bodyParser.json());
 
+// using ! means it cant be null, we can say required
+//  input EventInput is a type for create event
 app.use(
   "/graphql",
   graphqlHTTP({
     schema: buildSchema(`
+    type Event{
+        _id:ID!
+        title:String!
+        description : String!
+        price:Float!
+        date:String!
+    }
+    input EventInput {
+        title:String!
+         description:String!
+         price:Float!
+         date:String!
+    }
     type RootQuery{
-        events:[String!]! 
+        events:[Event!]! 
     }
     type RootMutation{
-        createEvent(name:String):String
+        createEvent(eventInput:EventInput):Event
     }
     schema{
         query:RootQuery
@@ -25,11 +40,17 @@ app.use(
     // resolver
     rootValue: {
       events: () => {
-        return ["Ay", "Bee", "Cee", "Dee"];
+        return events;
       },
       createEvent: (args) => {
-        const eventName = args.name;
-        return eventName;
+        const event = {
+          _id: Math.random.toString(),
+          title: args.eventInput.title,
+          description: args.eventInput.description,
+          price: +args.eventInput.price,
+          date: args.eventInput.date,
+        };
+        return events.push(event);
       },
     },
     // enable graphql playground
