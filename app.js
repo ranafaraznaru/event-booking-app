@@ -4,7 +4,7 @@ import { graphqlHTTP } from "express-graphql";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { grapphqlSchema } from "./graphql/schema/index.js";
-import { graphqlResolvers } from "./graphql/resolvers/index.js";
+import { rootResolvers } from "./graphql/resolvers/index.js";
 
 const app = express();
 dotenv.config();
@@ -19,7 +19,7 @@ app.use(
   graphqlHTTP({
     schema: grapphqlSchema,
     // resolver
-    rootValue: graphqlResolvers,
+    rootValue: rootResolvers,
     // enable graphql playground
     graphiql: true,
   })
