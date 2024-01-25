@@ -5,11 +5,15 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { grapphqlSchema } from "./graphql/schema/index.js";
 import { rootResolvers } from "./graphql/resolvers/index.js";
+import { isAuth } from "./middleware/is_auth.js";
 
 const app = express();
 dotenv.config();
 
 app.use(bodyParser.json());
+
+//middleware
+app.use(isAuth);
 
 // using ! means it cant be null, we can say required
 //  input EventInput is a type for create event
