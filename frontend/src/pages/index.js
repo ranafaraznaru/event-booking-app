@@ -11,6 +11,12 @@ const AppRoutes = () => {
   return (
     <Routes>
       {!token && <Route path="/" element={<Navigate to="/auth" replace />} />}
+      {!token && (
+        <Route path="/bookings" element={<Navigate to="/auth" replace />} />
+      )}
+      {!token && (
+        <Route path="/events" element={<Navigate to="/auth" replace />} />
+      )}
       {token && <Route path="/" element={<Navigate to="/events" replace />} />}
       {token && (
         <Route path="/auth" element={<Navigate to="/events" replace />} />

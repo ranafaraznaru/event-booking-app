@@ -4,7 +4,7 @@ import "./MainNavigation.css";
 import { AuthContext } from "../context/auth-context";
 
 const MainNavigation = () => {
-  const { token, userId } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
 
   return (
     <header className="main-navigation">
@@ -22,9 +22,14 @@ const MainNavigation = () => {
             <NavLink to="/events">Events</NavLink>
           </li>
           {token && (
-            <li>
-              <NavLink to="/bookings">Bookings</NavLink>
-            </li>
+            <>
+              <li>
+                <NavLink to="/bookings">Bookings</NavLink>
+              </li>
+              <li>
+                <button onClick={logout}>logout</button>
+              </li>
+            </>
           )}
         </ul>
       </nav>
