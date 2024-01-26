@@ -32,7 +32,7 @@ export const authResolvers = {
     if (!isEqual) {
       throw new Error("Password is incorrect!");
     }
-    const token = await jwt.sing(
+    const token = await jwt.sign(
       { userId: user.id, email: user.email },
       "somesupersecretkey",
       {

@@ -12,6 +12,16 @@ dotenv.config();
 
 app.use(bodyParser.json());
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 //middleware
 app.use(isAuth);
 
@@ -33,6 +43,6 @@ mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("DBConnection successfull!");
-    app.listen(3000);
+    app.listen(8000);
   })
   .catch((err) => console.log("mongo connection error", err));

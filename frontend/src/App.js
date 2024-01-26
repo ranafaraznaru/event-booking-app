@@ -1,28 +1,20 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
-import AuthPage from "./pages/Auth";
-import BookingsPage from "./pages/Bookings";
-import EventsPage from "./pages/Events";
 import MainNavigation from "./components/Navigation/MainNavigation";
+import AuthProvider from "./components/context/auth-context";
+import AppRoutes from "./pages";
 
 const App = () => {
   return (
     <BrowserRouter>
       <React.Fragment>
-        <MainNavigation />
-        <main className="main-content">
-          <Routes>
-            {/* <Redirect from="/" to="/auth" exact /> */}
-            <Route path="/" element={<Navigate to="/auth" replace />} />
-            {/* <Route path="/auth" component={AuthPage} /> */}
-            <Route path="/auth" element={<AuthPage />} />
-            {/* <Route path="/events" component={EventsPage} /> */}
-            <Route path="/events" element={<EventsPage />} />
-            {/* <Route path="/bookings" component={BookingsPage} /> */}
-            <Route path="/bookings" element={<BookingsPage />} />
-          </Routes>
-        </main>
+        <AuthProvider>
+          <MainNavigation />
+          <main className="main-content">
+            <AppRoutes />
+          </main>
+        </AuthProvider>
       </React.Fragment>
     </BrowserRouter>
   );
